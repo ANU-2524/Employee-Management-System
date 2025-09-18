@@ -2,46 +2,63 @@ package com.example.employeemanagementsystem.controller;
 
 import com.example.employeemanagementsystem.model.Employee;
 import com.example.employeemanagementsystem.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/employees")
+@RequiredArgsConstructor
+@Slf4j
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        Employee createdEmployee = employeeService.createEmployee(employee);
-        return ResponseEntity.ok(createdEmployee);
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+        log.info("POST /employees");
+        Employee created = employeeService.createEmployee(employee);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
-        List<Employee> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+        log.info("GET /employees");
+        return ResponseEntity.ok(employeeService.getAllEmployees());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
-        Employee employee = employeeService.getEmployeeById(id);
-        return ResponseEntity.ok(employee);
+    public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+        log.info("GET /employees/{}", id);
+        try {
+            return ResponseEntity.ok(employeeService.getEmployeeById(id));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
-        Employee updatedEmployee = employeeService.updateEmployee(id, employeeDetails);
-        return ResponseEntity.ok(updatedEmployee);
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        log.info("PUT /employees/{}", id);
+        try {
+            return ResponseEntity.ok(employeeService.updateEmployee(id, employee));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+        log.info("DELETE /employees/{}", id);
+        try {
+            employeeService.deleteEmployee(id);
+            return ResponseEntity.ok().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 }
