@@ -1,5 +1,6 @@
 com\example\employeemanagementsystem\controller\EmployeeController.class
 com\example\employeemanagementsystem\EmployeeManagementSystemApplication.class
+com\example\employeemanagementsystem\EmployeeManagementSystemApplication$1.class
 com\example\employeemanagementsystem\model\Employee$EmployeeBuilder.class
 com\example\employeemanagementsystem\repository\EmployeeRepository.class
 com\example\employeemanagementsystem\service\impl\EmployeeServiceImpl.class
