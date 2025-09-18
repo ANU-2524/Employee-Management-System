@@ -13,7 +13,7 @@ public class EmployeeManagementSystemApplication {
         SpringApplication.run(EmployeeManagementSystemApplication.class, args);
     }
 
-    @Bean
+@Bean
 public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
         @Override
@@ -27,6 +27,7 @@ public WebMvcConfigurer corsConfigurer() {
         }
     };
 }
+
 
 
 }
