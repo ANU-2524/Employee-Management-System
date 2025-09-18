@@ -20,6 +20,7 @@ public class EmployeeManagementSystemApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins("http://employee-management-system-sandy-kappa.vercel.app/")
                         .allowedMethods("GET", "POST", "PUT", "DELETE");
             }
         };
