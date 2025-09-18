@@ -21,11 +21,12 @@ public WebMvcConfigurer corsConfigurer() {
             registry.addMapping("/**")
                 .allowedOrigins(
                     "http://localhost:5173",
-                    "https://employee-management-system-sandy-kappa.vercel.app"
+                    "http://employee-management-system-sandy-kappa.vercel.app"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
         }
     };
 }
+
 
 }
