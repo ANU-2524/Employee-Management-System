@@ -14,15 +14,18 @@ public class EmployeeManagementSystemApplication {
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
-                        .allowedOrigins("http://employee-management-system-sandy-kappa.vercel.app/")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE");
-            }
-        };
-    }
+public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                .allowedOrigins(
+                    "http://localhost:5173",
+                    "https://employee-management-system-sandy-kappa.vercel.app"
+                )
+                .allowedMethods("GET", "POST", "PUT", "DELETE");
+        }
+    };
+}
+
 }
