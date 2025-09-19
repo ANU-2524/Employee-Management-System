@@ -10,7 +10,7 @@ export default function App() {
   // Fetch employees
   const fetchEmployees = () => {
     setLoading(true);
-    fetch('https://employee-management-system-g6j4.onrender.com/employees')
+    fetch('http://localhost:8080/employees')
       .then(res => res.json())
       .then(data => setEmployees(data))
       .finally(() => setLoading(false));
@@ -46,8 +46,8 @@ export default function App() {
     setLoading(true);
     const method = editing ? 'PUT' : 'POST';
     const url = editing
-      ? `https://employee-management-system-g6j4.onrender.com/employees/${editing.id}`
-      : 'https://employee-management-system-g6j4.onrender.com/employees';
+      ? `http://localhost:8080/employees/${editing.id}`
+      : 'http://localhost:8080/employees';
     fetch(url, {
       method: method,
       headers: { 'Content-Type': 'application/json' },
@@ -70,7 +70,7 @@ export default function App() {
   const handleDelete = (id) => {
     if (!window.confirm("Delete this employee?")) return;
     setLoading(true);
-    fetch(`https://employee-management-system-g6j4.onrender.com/employees/${id}`, { method: 'DELETE' })
+    fetch(`http://localhost:8080/employees/${id}`, { method: 'DELETE' })
       .then(() => {
         fetchEmployees();
         showMsg('Deleted!');
